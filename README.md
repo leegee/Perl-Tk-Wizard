@@ -1,7 +1,9 @@
-Perl-Tk-Wizard — `Tk::Wizard` — Wizard GUI Framework
+Perl-Tk-Wizard
 ====================================================
 
-DESCRIPTION
+`Tk::Wizard` — a Wizard GUI framework in Perl
+
+Description
 -----------
 
 In the context of this Perl namespace, a Wizard is defined as a graphical
@@ -41,15 +43,15 @@ Important Changes To Previous Versions
   to semi-automatically recalculate what you should pass in the
   `-width` and `-height` arguments.
 
-INSTALLATION
+Installation
 ------------
 
-This module can be installed in the normal perl way, such as one of:
+This module can be installed in the normal Perl way, such as one of:
 
     perl -MCPAN -e "install Tk::Wizard"
     cpan Tk::Wizard
     cpanm Tk::Wizard
-
+    # Or manually from source:
     perl Makefile.PL && make all test && make install
 
 If you are on Windows you might have to use `nmake` instead of make -
