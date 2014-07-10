@@ -1,0 +1,17 @@
+.*.old
+.*.bak
+temp.pl
+\.tar$
+\.tar.gz$
+\.zip$
+report.pl
+\.tar\.gz$
+\.tdy$
+blib
+\.extra
+Makefile
+dump$
+\.pag$
+\.dir$
+tmp$
+tmp/$
