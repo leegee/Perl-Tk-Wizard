@@ -6,6 +6,8 @@ use warnings;
 use vars '$VERSION';
 $VERSION = do { my @r = ( q$Revision: 2.8 $ =~ /\d+/g ); sprintf "%d." . "%03d" x $#r, @r };
 
+=encoding utf8
+
 =head1 NAME
 
 Tk::Wizard::Image - Base64-encoded images for Tk::Wizard

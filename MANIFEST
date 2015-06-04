@@ -42,7 +42,7 @@ t/122_skip.t
 t/130_pb.t
 t/140_Win32.t
 t/150_Installer.t
-t/152_Installer.t
+t/152_Licence.t
 t/155_Uninstaller.t
 t/160_textbox.t
 t/165_fonts.t

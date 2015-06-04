@@ -1,20 +1,15 @@
-
-# $Id: 52_Installer.t,v 1.15 2007/11/16 21:36:00 martinthurn Exp $
-
 use strict;
 use warnings;
 
-my $VERSION = do { my @r = ( q$Revision: 1.15 $ =~ /\d+/g ); sprintf "%d." . "%03d" x $#r, @r };
+my $VERSION = 1.16;
 
 use ExtUtils::testlib;
 use File::Path;
 use Test::More;
 use Tk;
-use lib qw(../lib . t/);
+use lib qw( lib t/);
 
 use Cwd;
-chdir ".." if getcwd =~ /\Wt$/;
-
 
 BEGIN {
     my $mwTest;
@@ -29,8 +24,6 @@ BEGIN {
     use_ok("Tk::Wizard::Installer");
     use_ok('WizTestSettings');
 }
-
-
 
 my $WAIT   = $ENV{TEST_INTERACTIVE} ? 0 : 111;
 my @form = qw( 1 2 );
@@ -63,7 +56,7 @@ for (@form) {
 for (@dest) {
     my $sDest = "$testdir/$_";
     unlink $sDest;
-    # Make sure destination files to NOT exist:
+    # Make sure destination files do NOT exist:
     ok( !-e $sDest, qq'destination file $sDest does not exist before test' );
 }
 
@@ -73,7 +66,7 @@ if ( $ENV{TEST_INTERACTIVE} ) {
     unshift @dest, 'no_such_dir';
 }
 
-my $iPageCount = 0;
+my $page_count = 0;
 my $wizard = Tk::Wizard::Installer->new( -title => "Installer Test", );
 isa_ok( $wizard, 'Tk::Wizard::Installer' );
 isa_ok( $wizard->parent, "Tk::MainWindow", "Parent" );
@@ -82,7 +75,6 @@ ok( $wizard->configure( -finishButtonAction => sub { ok( 1, 'Finished' ); 1 }, )
 isa_ok( $wizard->cget( -finishButtonAction ), "Tk::Callback" );
 
 # Create pages
-#
 my $SPLASH = $wizard->addSplashPage(
     -wait     => $WAIT,
     -title    => "Installer Test",
@@ -91,17 +83,18 @@ my $SPLASH = $wizard->addSplashPage(
 );
 is( $SPLASH, 1, 'Splash page is first' );
 
-$iPageCount++;
+$page_count++;
 
 ok(
     $wizard->addLicencePage(
+        -preNextButton => sub {},
         -wait     => $WAIT,
         -filepath => 't/dos.txt',
     ),
     'added DOS license page'
 );
 
-$iPageCount++;
+$page_count++;
 
 ok(
     $wizard->addLicencePage(
@@ -111,7 +104,7 @@ ok(
     'added UNIX license page'
 );
 
-$iPageCount++;
+$page_count++;
 
 ok(
     $wizard->addLicencePage(
@@ -121,7 +114,7 @@ ok(
     'added "extra" license page'
 );
 
-$iPageCount++;
+$page_count++;
 
 ok(
     $wizard->addFileListPage(
@@ -134,7 +127,7 @@ ok(
     'added File List page'
 );
 
-$iPageCount++;
+$page_count++;
 
 ok(
     $wizard->addSplashPage(
@@ -146,12 +139,12 @@ ok(
     'Added finish page'
 );
 
-$iPageCount++;
+$page_count++;
 
 isa_ok( $wizard->{_pages}, 'ARRAY', 'Page list array' );
-is( scalar( @{ $wizard->{_pages} } ), $iPageCount, 'Number of pages' );
+is( scalar( @{ $wizard->{_pages} } ), $page_count, 'Number of pages' );
 
-foreach my $iPage ( 1 .. $iPageCount ) {
+foreach my $iPage ( 1 .. $page_count ) {
     isa_ok( $wizard->{_pages}->[ $iPage - 1 ], 'CODE', qq'Page $iPage in list' );
 }
 
@@ -162,6 +155,7 @@ ok( 1, "Exited MainLoop" );
 rmtree $TEMP_DIR;
 
 sub bail_out {
+    diag 'BAIL OUT';
     diag @_;
     exit;
 }

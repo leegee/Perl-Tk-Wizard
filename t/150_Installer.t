@@ -1,8 +1,6 @@
 use strict;
 use warnings;
 
-my $VERSION = do { my @r = ( q$Revision: 1.13 $ =~ /\d+/g ); sprintf "%d." . "%03d" x $#r, @r };
-
 use ExtUtils::testlib;
 use File::Path;
 use Test::More;
@@ -10,7 +8,7 @@ use FindBin '$Bin';
 use Tk;
 use lib qw(../lib . t/);
 
-
+my $VERSION = 1.14;
 
 BEGIN {
     my $mwTest;
@@ -48,6 +46,7 @@ my $get_files = {
 };
 
 # This sometimes fails - why?
+# Lee: Never failed for me.
 my $wizard = Tk::Wizard::Installer->new( -title => "Installer Test", );
 
 isa_ok( $wizard, 'Tk::Wizard::Installer' );

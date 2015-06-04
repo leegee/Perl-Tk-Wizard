@@ -4,9 +4,7 @@ use strict;
 use warnings;
 use warnings::register;
 
-use vars '$VERSION';
-$VERSION = do { my @r = ( q$Revision: 2.39 $ =~ /\d+/g ); sprintf "%d." . "%03d" x $#r, @r };
-
+our $VERSION = 2.40;
 
 =head1 NAME
 
@@ -14,23 +12,23 @@ Tk::Wizard::Installer - Building-blocks for a software install wizard
 
 =head1 SYNOPSIS
 
-  use Tk::Wizard::Installer;
-  my $wizard = new Tk::Wizard::Installer( -title => "Installer Test", );
-  $wizard->addDownloadPage(
-    -no_retry => 1,
-    -files  => {
-      'http://www.cpan.org/' => './cpan_index1.html',
-    },
-  );
-  $wizard->addPage( sub {
-    return $wizard->blank_frame(
-      -title=>"Finished",
-      -subtitle => "Please press Finish to leave the Wizard.",
-      -text => ""
+    use Tk::Wizard::Installer;
+    my $wizard = new Tk::Wizard::Installer( -title => "Installer Test", );
+    $wizard->addDownloadPage(
+        -no_retry => 1,
+        -files  => {
+            'http://www.cpan.org/' => './cpan_index1.html',
+        },
     );
-  });
-  $wizard->Show;
-  MainLoop;
+    $wizard->addPage( sub {
+        return $wizard->blank_frame(
+            -title=>"Finished",
+            -subtitle => "Please press Finish to leave the Wizard.",
+            -text => ""
+        );
+    });
+    $wizard->Show;
+    MainLoop;
 
 =cut
 
@@ -59,9 +57,10 @@ BEGIN {
 	eval { require Log::Log4perl; };
 
 	# No Log4perl so bluff: see Log4perl FAQ
-	if($@) {
+	if ($@) {
 		no strict qw"refs";
 		*{__PACKAGE__."::$_"} = sub { } for qw(TRACE DEBUG INFO WARN ERROR FATAL);
+        *{__PACKAGE__."::LOGCROAK"} = Carp::croak;
 	}
 
 	# Setup log4perl
@@ -128,27 +127,35 @@ plus those listed in the remainder of this document.
 
 =head2 addLicencePage
 
-  $wizard->addLicencePage ( -filepath => $path_to_licence_text )
+    $wizard->addLicencePage ( -filepath => $path_to_licence_text )
 
 Adds a page (a L<Tk::Frame|Tk::Frame>) that contains a scroll text box
 of a licence text file specified in the C<-filepath> argument.
 Presents the user with two options: accept, or don't accept.  The user
 I<cannot> progress until the former option has been chosen.  The
-choice is entered into the object field C<licence_agree>, which you
-can test as the I<Next> button is pressed, either using your own
-function or with the Wizard's C<callback_licence_agreement> function.
+choice is entered into the object field C<licence_agree>, which is
+automatically tested when the I<Next> button is pressed, or with the 
+Wizard's C<callback_licence_agreement> function. You can over-ride
+this last action by providing your own C<-preNextButtonAction> callback.
 
 =cut
 
 sub addLicencePage {
     my ( $self, $args ) = ( shift, {@_} );
     Carp::croak "No -filepath argument present" if not $args->{-filepath};
-    # $self->addPage( sub { $self->_page_licence_agreement($args) } );
 	my %btn_args =
 		map { my $x = delete $args->{$_}; $_ => $x }
 		grep { /ButtonAction$/ }
 		keys %$args;
-	return $self->addPage( sub { $self->_page_licence_agreement($args) }, %btn_args );
+	return $self->addPage( 
+        sub { $self->_page_licence_agreement($args) }, 
+        %btn_args,
+        ( 
+          $args->{'-preNextButtonAction'}
+          ?  (-preNextButtonAction => sub { $self->callback_licence_agreement(@_); } )
+          : ()
+        )
+    );
 }
 
 
@@ -169,7 +176,7 @@ sub _page_licence_agreement {
     my $fname = $args->{-filepath};
 
 	my $text;
-	open my $in, $fname or Carp::croak "Could not read licence from $fname: $!";
+	open my $in, $fname or LOGCROAK "Could not read licence from $fname: $!";
 	read $in, $text, -s $in;
 	close $in;
 	warn "Licence file $fname is empty!" if not length $text;
@@ -209,6 +216,7 @@ sub _page_licence_agreement {
     $opts1{-underline} = 2;    # Third character is the "A" of "Accept"
     $self->bind( '<Alt-a>' => sub { ${ $self->{licence_agree} } = 1 } );
     my $buttonAccept = $frame->Radiobutton(%opts1)->pack( -padx => $padx, -anchor => 'w', );
+
     my %opts2 = (
         -font     => $self->{defaultFont},
         -text     => $LABELS{LICENCE_OPTION_NO},
@@ -217,11 +225,9 @@ sub _page_licence_agreement {
         -value    => 0,
         -anchor   => 'w',
     );
-
     # Setting -background to undef causes core dump deep inside Tk!
     $opts2{-background} = $self->cget("-background")
       if $self->cget("-background");
-
     $opts2{-underline} = 5;    # 6th character = 'N' of 'Not'
     $self->bind( '<Alt-n>' => sub { ${ $self->{licence_agree} } = 0 } );
     $frame->Radiobutton(%opts2)->pack( -padx => $padx, -anchor => 'w', );
