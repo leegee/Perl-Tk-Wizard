@@ -1,27 +1,25 @@
-
+use strict;
+use warnings;
 use inc::Module::Install;
 
-#
-# I am not a fan of Module::Install.
-#
-
 name('Tk-Wizard');
-version("2.153");
+version("2.154");
 abstract('GUI for step-by-step interactive logical process');
-author('cpan-at-lgoddard-dot-net');
+author('lee-goddard-cpan-at-lgoddard-dot-net');
 license('perl');
 
 requires("Carp");
 requires("Cwd");
-build_requires("ExtUtils::testlib");
 requires("File::Copy");
 requires("File::Path");
-build_requires("File::Path");
 requires("File::Spec");
-build_requires("FileHandle");
 requires("IO::Handle");
 
-recommends('IO::Capture::Stderr::Extended');
+build_requires("ExtUtils::testlib");
+build_requires("File::Path");
+build_requires("FileHandle");
+
+build_recommends('IO::Capture::Stderr::Extended');
 
 # There are features "missing" in earlier versions
 recommends 'Log::Log4perl' => '1.12';
@@ -32,7 +30,6 @@ build_requires('LWP::UserAgent');
 recommends('HTTP::Request');
 requires("Scalar::Util");
 
-# build_requires('IO::Capture::Stderr::Extended');
 build_requires("Test::More");
 requires('Tk');
 requires("Tk::After");
@@ -57,7 +54,7 @@ if ( $^O =~ m/(MSWin32)/i ) {
             warn "Win32.pm version is $_ (less than 0.2), therefore we will use Win32::OLE.  (This requires Windows Scripting Host which is present on Win98 and higher.)\n";
         }
         else {
-            warn "Using Win32 for special folders...\n";
+            warn "Using Win32.pm for special folders...\n";
             requires( 'Win32' => 0.2 );
         }
     }
@@ -78,6 +75,5 @@ coverage :
 	$(MAKE) HARNESS_PERL_SWITCHES=-MDevel::Cover test
 	cover
 PART0
-}    # MY::postamble
+}    
 
-__END__

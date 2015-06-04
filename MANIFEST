@@ -1,9 +1,10 @@
 Changes
+LICENCE
 MANIFEST			This list of files
 MANIFEST.skip
 META.yml
 Makefile.PL
-README
+README.md
 RELEASE_PROCEDURE
 TODO
 examples/application.pl

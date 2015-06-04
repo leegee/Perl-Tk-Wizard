@@ -1,5 +1,3 @@
-#! perl -w
-
 # $Id: 77_dirselect.t,v 1.7 2007/08/18 00:44:16 martinthurn Exp $
 
 =head1 NAME

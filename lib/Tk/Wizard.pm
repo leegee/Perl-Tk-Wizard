@@ -445,69 +445,67 @@ sub new {
     }
 
     my $self        = $inv->SUPER::new(@args);
-    my $sFontFamily = $self->cget( -fontfamily );
-    my $iFontSize   = $self->cget( -basefontsize );
+    my $font_family = $self->cget( -fontfamily );
+    my $font_size   = $self->cget( -basefontsize );
 
     # Font used for &blank_frame titles
     $self->fontCreate(
         'TITLE_FONT',
-        -family => $sFontFamily,
-        -size   => $iFontSize + 4,
+        -family => $font_family,
+        -size   => $font_size + 4,
         -weight => 'bold',
     );
 
     $self->fontCreate(
         'FIXED',
         -family => 'Courier',
-        -size   => $iFontSize + 1,
+        -size   => $font_size + 1,
     );
 
     # Font used in multiple choices for radio title
     $self->fontCreate(
         'RADIO_BOLD',
-        -family => $sFontFamily,
-        -size   => $iFontSize + 2,
+        -family => $font_family,
+        -size   => $font_size + 2,
         -weight => 'demi',
     );
 
     # Fonts used if -style=>"top"
     $self->fontCreate(
         'TITLE_FONT_TOP',
-        -family => $sFontFamily,
-        -size   => $iFontSize + 4,
+        -family => $font_family,
+        -size   => $font_size + 4,
         -weight => 'bold',
     );
 
     $self->fontCreate(
         'SUBTITLE_FONT',
-        -family => $sFontFamily,
-        -size   => $iFontSize + 2,
+        -family => $font_family,
+        -size   => $font_size + 2,
     );
 
     # Font used in licence agreement  XXX REMOVE TO CORRECT MODULE
     $self->fontCreate(
         'SMALL_FONT',
-        -family => $sFontFamily,
-        -size   => $iFontSize - 1,
+        -family => $font_family,
+        -size   => $font_size - 1,
     );
 
     # Font used in all other places
     $self->fontCreate(
         'DEFAULT_FONT',
-        -family => $sFontFamily,
-        -size   => $iFontSize,
+        -family => $font_family,
+        -size   => $font_size,
     );
 
     $self->{defaultFont} = 'DEFAULT_FONT';
     $self->{tagtext}->configure( -font => $self->{defaultFont} );
 
     if (not $self->cget('-width') ) {
-        # Caller apparently did not supply a -width argument to new():
-        $self->configure( -width => $iFontSize * 75 );
+        $self->configure( -width => $font_size * 50 );
     }
 
     if (not $self->cget('-height') ) {
-        # Caller apparently did not supply a -height argument to new():
         $self->configure( -height => $self->cget( -width ) * 0.75 );
     }
     return $self;
@@ -527,7 +525,7 @@ sub Populate {
     $self->SUPER::Populate($args);
     $self->withdraw;
     my $sTagTextDefault = 'Perl Wizard';
-    my $iFontSize       = $self->_font_size;
+    my $font_size       = $self->_font_size;
 
     # $composite->ConfigSpecs(-attribute => [where,dbName,dbClass,default]);
     $self->ConfigSpecs(
@@ -2126,7 +2124,7 @@ This software is made available under the same terms as Perl itself.
 
 This software is not endorsed by, or in any way associated with,  the Microsoft Corp
 
-Microsoft is, obvisouly, a registered trademark of Microsoft Corp.
+Microsoft is, obviously, a registered trademark of Microsoft Corp.
 
 =cut
 
