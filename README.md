@@ -67,9 +67,9 @@ Lee Goddard (lgoddard@cpan.org)
 
 LAST UPDATED
 ------------
-2010. This file: 2015.
+Please see the `Changes` file for details of updates.
 
 MANY THANKS TO
 --------------
-Daniel T Hable
+Daniel T Hable; 
 Martin Thurn (mthurn@cpan.org)
