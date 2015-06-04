@@ -8,9 +8,7 @@ Description
 
 In the context of this Perl namespace, a Wizard is defined as a graphical
 user interface (GUI) that presents information, and possibly performs
-tasks, step-by-step via a series of different pages.  Pages (or
-'screens', or 'Wizard frames') may be chosen logically depending upon
-user input.
+step-by-step tasks, possibly depending upon user input.
 
 The `Tk::Wizard` module automates a large part of the creation of a
 wizard program to collect information and then perform some complex
@@ -69,7 +67,7 @@ Lee Goddard (lgoddard@cpan.org)
 
 LAST UPDATED
 ------------
-2010. This file: 2014.
+2010. This file: 2015.
 
 MANY THANKS TO
 --------------
