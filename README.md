@@ -6,6 +6,8 @@ Perl-Tk-Wizard
 Description
 -----------
 
+A GUI for step-by-step interactive logical process.
+
 In the context of this Perl namespace, a Wizard is defined as a graphical
 user interface (GUI) that presents information, and possibly performs
 step-by-step tasks, possibly depending upon user input.
@@ -71,5 +73,12 @@ Please see the `Changes` file for details of updates.
 
 MANY THANKS TO
 --------------
-Daniel T Hable; 
-Martin Thurn (mthurn@cpan.org)
+Daniel T Hable.
+
+James Tillman;
+Martin Thurn;
+Paul Barker;
+Peter Weber;
+Scott R. Keszler;
+Slaven Rezic.
+

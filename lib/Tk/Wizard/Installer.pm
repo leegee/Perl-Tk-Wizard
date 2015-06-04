@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use warnings::register;
 
-our $VERSION = 2.40;
+our $VERSION = 2.41;
 
 =head1 NAME
 
@@ -60,7 +60,8 @@ BEGIN {
 	if ($@) {
 		no strict qw"refs";
 		*{__PACKAGE__."::$_"} = sub { } for qw(TRACE DEBUG INFO WARN ERROR FATAL);
-        *{__PACKAGE__."::LOGCROAK"} = Carp::croak;
+        *{__PACKAGE__."::LOGCROAK"} = *Carp::croak;
+        *{__PACKAGE__."::LOGCONFESS"} = *Carp::confess;
 	}
 
 	# Setup log4perl
