@@ -1,16 +1,16 @@
 Tk::Wizard TODO
+===============
 
 * unlink uninstaller.db.* files
 
 * Default sizes are now off: see the test suite
 
-* Fit text to pages, with scrollbars?
-
 * TaskList background when coloured
 
-* Images broken in 5.8.8 ?
+* Images broken in 5.8.8 ? Who uses 5.8.8?
 
 * t/210_Images.t - Tk::JPEG errors on non-Vista machines.
+  Who uses Windows?
   Now changed to:
 
   D:\src\Tk-Wizard-2.141>prove t\210_images.t
