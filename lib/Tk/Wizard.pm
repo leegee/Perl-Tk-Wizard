@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use warnings::register;
 
-our $VERSION = 2.085;
+our $VERSION = 2.086;
 
 =head1 NAME
 
@@ -16,7 +16,6 @@ use Carp;
 use Config;
 use Data::Dumper;
 use File::Path;
-use File::Spec::Functions qw( rootdir );
 use Tk;
 use Tk::DialogBox;
 use Tk::Frame;
@@ -1546,7 +1545,7 @@ sub _CancelButtonEventCycle {
 sub _CloseWindowEventCycle {
     my $self = shift;
     my $gui  = shift;
-    TRACE "Enter _CloseWindowEventCycle... really=[", ($self->{really_quit} || 'undef'), "]";
+    TRACE "Enter _CloseWindowEventCycle... really_quit=[", ($self->{really_quit} || 'undef'), "]";
 
     if ( not $self->{really_quit} ) {
         DEBUG "Really?";
@@ -1882,7 +1881,7 @@ sub _fix_wait {
 
 This is the default callback for -preCloseWindowAction.
 It gives the user a Yes/No dialog box; if the user clicks "Yes",
-this function returns true (otherwise returns a false value).
+this function returns a false value, otherwise a true value.
 
 =cut
 
@@ -2109,8 +2108,7 @@ to submit a bug report.
 
 Lee Goddard (lgoddard@cpan.org) based on work by Daniel T Hable.
 
-Thanks to Martin Thurn (mthurn@cpan.org) and Scott R. Keszler for support,
-patches, and extensions, whilst I'm elsewhere.
+Please see the F<README.md> file for a list of contributors and helpers - thanks to all.
 
 =head1 KEYWORDS
 
@@ -2118,7 +2116,7 @@ Wizard; set-up; setup; installer; uninstaller; install; uninstall; Tk; GUI.
 
 =head1 COPYRIGHT
 
-Copyright (C) Lee Goddard, 11/2002 - 02/2010 ff.
+Copyright (C) Lee Goddard, 11/2002 - 02/2010, 06/2015 ff.
 
 This software is made available under the same terms as Perl itself.
 

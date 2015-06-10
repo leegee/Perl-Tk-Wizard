@@ -63,9 +63,9 @@ If you set environment variable `TEST_INTERACTIVE` to any non-zero
 value, most of the tests will pause and you will have to click the
 "Next" button several times to get through them.
 
-AUTHOR
-------
-Lee Goddard (lgoddard@cpan.org)
+AUTHOR AND COPYRIGHT
+--------------------
+Copyright (C) Lee Goddard (lgoddard@cpan.org) 2002, 2015, ff.
 
 LAST UPDATED
 ------------
@@ -75,6 +75,7 @@ MANY THANKS TO
 --------------
 Daniel T Hable.
 
+Alex S B.
 James Tillman;
 Martin Thurn;
 Paul Barker;

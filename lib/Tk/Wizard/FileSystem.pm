@@ -4,13 +4,13 @@ use strict;
 use warnings;
 use warnings::register;
 
-use vars '$VERSION';
-$VERSION = do { my @r = ( q$Revision: 2.77 $ =~ /\d+/g ); sprintf "%d." . "%03d" x $#r, @r };
+our $VERSION = 2.78;
 
 use Carp ();
 use Tk::LabFrame;
 use Tk::DirTree;
 use Tk::Wizard::Image;
+use File::Spec::Functions qw( rootdir );
 
 my $WINDOZE = ($^O =~ m/MSWin32/i);
 my $dir_term 	 = $WINDOZE ? 'folder' : 'directory';
@@ -483,6 +483,6 @@ Lee Goddard (lgoddard@cpan.org).
 
 =head1 COPYRIGHT
 
-Copyright (C) Lee Goddard, 11/2002 - 01/2008 ff.
+Copyright (C) Lee Goddard, 11/2002 - 01/2008, 06/2015 ff.
 
 Made available under the same terms as Perl itself.

@@ -15,3 +15,4 @@ dump$
 \.dir$
 tmp$
 tmp/$
+t/400_really_quit.t

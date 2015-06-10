@@ -32,6 +32,7 @@ BEGIN {
 
 	# Log l4p is we have it
 	eval { require Log::Log4perl; };
+
 	# No l4p - add stubs
 	if ($@) {
 		no strict qw(refs);
@@ -88,16 +89,14 @@ sub add_test_pages {
 
     $dir_select = $^O =~ m/MSWin32/i ? 'C:\\' : '/';
 
-    $wiz->addPage(
-        sub {
-            $wiz->blank_frame(
-                -wait     => $args->{-wait},
-                -title    => "Intro Page Title ($wiz->{-style} style)",
-                -subtitle => "Intro Page Subtitle ($wiz->{-style} style)",
-                -text     => sprintf( "This is the Intro Page of %s ($wiz->{-style} style)", __PACKAGE__ ),
-            );
-          }
-    );
+    $wiz->addPage( sub {
+        $wiz->blank_frame(
+            -wait     => $args->{-wait},
+            -title    => "Intro Page Title ($wiz->{-style} style)",
+            -subtitle => "Intro Page Subtitle ($wiz->{-style} style)",
+            -text     => sprintf( "This is the Intro Page of %s ($wiz->{-style} style)", __PACKAGE__ ),
+        );
+    });
 
     my $s = "This is the text contents for the Tester TextFrame Page ($wiz->{-style} style).
 It is stored in a string variable,
@@ -176,9 +175,6 @@ and a reference to this string variable is passed to the addTextFramePage() meth
     return $wiz;
 }
 
-
-
-
 =head2 Show
 
 Before we actually show the Tester Wizard,
@@ -191,33 +187,30 @@ but there will always be a "content-poor" finish page.
 
 sub Show {
     my $wiz = shift;
-    $wiz->addPage(
-        sub {
-            $wiz->blank_frame(
-                -wait  => $wiz->{_wait_},
-                -title => "Tester Wizard last page ($wiz->{_style_} style)",
-            );
-        }
+    $wiz->addPage(sub {
+        $wiz->blank_frame(
+            -wait  => $wiz->{_wait_},
+            -title => "Tester Wizard last page ($wiz->{_style_} style)",
+        )}
     );
     $wiz->SUPER::Show;
-}    # Show
+}
 
 sub _task_good {
     sleep 1;
     return 1;
-}    # _task_good
+}    
 
 sub _task_na {
     sleep 1;
     return undef;
-}    # _task_na
+}    
 
 sub _task_fail {
     sleep 1;
     return 0;
-}    # _task_fail
+}    
 
 1;
 
-__END__
 
