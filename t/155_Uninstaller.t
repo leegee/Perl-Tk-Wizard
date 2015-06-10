@@ -1,14 +1,12 @@
-# $Id: 52_Installer.t,v 1.15 2007/11/16 21:36:00 martinthurn Exp $
-
 use strict;
 use warnings;
 
-my $VERSION = do { my @r = ( q$Revision: 1.15 $ =~ /\d+/g ); sprintf "%d." . "%03d" x $#r, @r };
+my $VERSION = 1.16;
 
 use File::Path;
 use Test::More;
 use Tk;
-use lib qw(../lib . t/);
+use lib qw(lib t/);
 use Cwd;
 
 BEGIN {
@@ -204,11 +202,8 @@ ok( $un_wizard->Show, "Show" );
 MainLoop();
 ok( 1, "Exited MainLoop" );
 
-TODO: {
-	local $TODO = "Not sure why not unlinking - help please";
-	ok( not(-e $uninstall_db.'.dir'), 'Module removed uninstaller .dir file');
-	ok( not(-e $uninstall_db.'.pag'), 'Module removed uninstaller .pag file');
-}
+ok( not(-e $uninstall_db.'.dir'), 'Module removed uninstaller .dir file');
+ok( not(-e $uninstall_db.'.pag'), 'Module removed uninstaller .pag file');
 
 {
 	if (-d $testdir.$dest_subdir){
@@ -223,8 +218,6 @@ TODO: {
 }
 
 END {
-	undef $un_wizard;
-	diag "Test will probably fail to clean up: is something holding on to the files?";
 	rmtree $TEMP_DIR;
 	unlink $uninstall_db.'.dir';
 	unlink $uninstall_db.'.pag';
