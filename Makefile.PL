@@ -3,7 +3,7 @@ use warnings;
 use inc::Module::Install;
 
 name('Tk-Wizard');
-version("2.155");
+version("2.156");
 abstract('GUI for step-by-step interactive logical process');
 author('lee-goddard-cpan-at-lgoddard-dot-net');
 license('perl');

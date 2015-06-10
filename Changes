@@ -1,5 +1,6 @@
 2015-06-10
 	* Alex's 'really_quit' patch
+	* RT#67728 Patch for Win32 warnings
 
 2015-06-04
 	* Hard-code the preNextButton callback for the licence agreement,

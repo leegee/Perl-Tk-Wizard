@@ -2,7 +2,8 @@ use strict;
 use warnings;
 
 package Tk::Wizard::Installer::Win32;
-our $VERSION = do { my @r = ( q$Revision: 2.21 $ =~ /\d+/g ); sprintf "%d." . "%03d" x $#r, @r };
+use warnings::register;
+our $VERSION = 2.22
 
 =head1 NAME
 
@@ -318,21 +319,14 @@ sub _page_start_menu {
     my $cwd    = cwd;
     my $do_set = 1;
 
-    Carp::croak "You must set -variable parameter"
-		if not exists $args->{-variable};
+    Carp::croak "You must set -variable parameter"if not exists $args->{-variable};
 
     $args->{-user} ||= 'common';
-
     $args->{-background} = 'white'  unless exists $args->{-background};
-
     $args->{-relief}     = 'sunken' unless exists $args->{-relief};
-
     $args->{-border}     = 1        unless exists $args->{-border};
-
     $args->{-listHeight} = 10       unless exists $args->{-listHeight};
-
     $args->{-title}    ||= "Create Shortcuts";
-
     $args->{-subtitle} ||= "Please select where to place an icon on the start menu";
 
     $args->{-text}     ||= "
@@ -342,7 +336,6 @@ If you do not want to install the new Program in your Start Folder,
 check the checkbox below.";
 
     $args->{-label_nochoice} ||= "Do not create a shortcut on the Start Menu";
-
     $self->{-program_group} = $args->{-program_group};
 
     my $common_formatting = {};
@@ -725,6 +718,6 @@ Lee Goddard (lgoddard@cpan.org).
 
 =head1 COPYRIGHT
 
-Copyright (C) Lee Goddard, 11/2002 - 01/2008 ff.
+Copyright (C) Lee Goddard, 11/2002 - 01/2008, 06/2015 ff.
 
 Made available under the same terms as Perl itself.
